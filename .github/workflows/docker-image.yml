@@ -1,0 +1,19 @@
+name: CICD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx (optional, but good practice)
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build the Docker image
+        run: docker build . -f Dockerfile -t my-image-name:${{ github.run_number }}
